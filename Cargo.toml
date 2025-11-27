@@ -1,0 +1,19 @@
+[package]
+name = "aksel"
+description = "A library for handling scales and transformations"
+version = "0.1.0"
+edition = "2024"
+authors = ["Mads Ahlquist Jensen <madsaj10@outlook.com>", "Dennis Mellquist"]
+repository = "https://github.com/QuistAPS/aksel"
+license = "MIT"
+keywords = ["scale", "transformation", "chart"]
+categories = ["mathematics"]
+
+[dependencies]
+num-traits = "0.2"
+
+[dev-dependencies]
+fastnum = { version = "0.7", features = ["numtraits"] }
+
+[features]
+default = []
