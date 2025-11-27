@@ -8,6 +8,11 @@ repository = "https://github.com/QuistAPS/aksel"
 license = "MIT"
 keywords = ["scale", "transformation", "chart"]
 categories = ["mathematics"]
+exclude = [
+"flake.nix",
+"flake.lock",
+".github/*",
+]
 
 [dependencies]
 num-traits = "0.2"
