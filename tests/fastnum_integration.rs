@@ -1,8 +1,8 @@
-use fastnum::decimal::D128;
-use tjart::{
+use aksel::{
     PlotPoint, PlotRect, Scale, ScreenPoint, ScreenRect, Transform,
     scale::{Linear, Logarithmic},
 };
+use fastnum::decimal::D128;
 
 #[test]
 fn test_linear_scale_with_decimal_domain_and_normalized() {

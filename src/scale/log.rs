@@ -41,7 +41,7 @@ type LogTickGenerator<D, N> = Box<dyn Fn(&Logarithmic<D, N>) -> TickIter<D>>;
 /// ## Basic Usage
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Logarithmic};
+/// use aksel::{Scale, scale::Logarithmic};
 ///
 /// // Base-10 logarithmic scale from 1 to 1000
 /// let scale = Logarithmic::<f64, f64>::new(10.0, 1.0, 1000.0);
@@ -62,7 +62,7 @@ type LogTickGenerator<D, N> = Box<dyn Fn(&Logarithmic<D, N>) -> TickIter<D>>;
 /// ## Natural Logarithm (Base e)
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Logarithmic};
+/// use aksel::{Scale, scale::Logarithmic};
 ///
 /// let e = std::f64::consts::E;
 /// let scale = Logarithmic::<f64, f64>::new(e, 1.0, e * e);
@@ -78,7 +78,7 @@ type LogTickGenerator<D, N> = Box<dyn Fn(&Logarithmic<D, N>) -> TickIter<D>>;
 /// preserve **ratios** rather than differences:
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Logarithmic};
+/// use aksel::{Scale, scale::Logarithmic};
 ///
 /// let mut scale = Logarithmic::<f64, f64>::new(10.0, 1.0, 100.0);
 ///
@@ -101,7 +101,7 @@ type LogTickGenerator<D, N> = Box<dyn Fn(&Logarithmic<D, N>) -> TickIter<D>>;
 /// Logarithmic scales generate ticks at powers of the base:
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Logarithmic};
+/// use aksel::{Scale, scale::Logarithmic};
 ///
 /// let scale = Logarithmic::<f64, f64>::new(10.0, 1.0, 1000.0);
 /// let ticks = scale.ticks();
@@ -127,7 +127,7 @@ type LogTickGenerator<D, N> = Box<dyn Fn(&Logarithmic<D, N>) -> TickIter<D>>;
 /// ## Domain Validation
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Logarithmic};
+/// use aksel::{Scale, scale::Logarithmic};
 ///
 /// let scale = Logarithmic::<f64, f64>::new(10.0, 1.0, 100.0);
 ///
@@ -153,7 +153,7 @@ type LogTickGenerator<D, N> = Box<dyn Fn(&Logarithmic<D, N>) -> TickIter<D>>;
 /// - pH scales in chemistry
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Logarithmic};
+/// use aksel::{Scale, scale::Logarithmic};
 ///
 /// // Example: Visualizing earthquake magnitudes (1 to 10 on Richter scale)
 /// // Each unit represents a 10x increase in amplitude
@@ -264,7 +264,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// use tjart::{Scale, scale::Logarithmic};
+    /// use aksel::{Scale, scale::Logarithmic};
     ///
     /// // Base-10 logarithmic scale
     /// let scale = Logarithmic::<f64, f64>::new(10.0, 1.0, 1000.0);
@@ -293,7 +293,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// use tjart::{Scale, scale::{Logarithmic, TickIter}};
+    /// use aksel::{Scale, scale::{Logarithmic, TickIter}};
     ///
     /// let scale = Logarithmic::<f64, f64>::new_with_tick_generator(
     ///     10.0, 1.0, 1000.0,
@@ -330,7 +330,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// use tjart::{Scale, scale::{Logarithmic, Tick}};
+    /// use aksel::{Scale, scale::{Logarithmic, Tick}};
     ///
     /// let scale = Logarithmic::<f64, f64>::new_with_tick_fn(
     ///     10.0, 1.0, 1000.0,

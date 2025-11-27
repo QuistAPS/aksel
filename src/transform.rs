@@ -42,7 +42,7 @@
 //! ## Basic Point Transformation
 //!
 //! ```rust
-//! use tjart::{Transform, scale::Linear, ScreenRect, ScreenPoint, PlotPoint};
+//! use aksel::{Transform, scale::Linear, ScreenRect, ScreenPoint, PlotPoint};
 //!
 //! // Define screen area (800x600 pixels)
 //! let screen = ScreenRect {
@@ -68,7 +68,7 @@
 //! ## Rectangle Transformation
 //!
 //! ```rust
-//! use tjart::{Transform, scale::Linear, ScreenRect, PlotRect};
+//! use aksel::{Transform, scale::Linear, ScreenRect, PlotRect};
 //!
 //! let screen = ScreenRect { x: 0.0, y: 0.0, width: 800.0, height: 600.0 };
 //! let x_scale = Linear::<f64, f32>::new(0.0, 100.0);
@@ -90,7 +90,7 @@
 //! ## Handling User Input
 //!
 //! ```rust
-//! use tjart::{Transform, scale::Linear, ScreenRect, ScreenPoint};
+//! use aksel::{Transform, scale::Linear, ScreenRect, ScreenPoint};
 //!
 //! let screen = ScreenRect { x: 0.0, y: 0.0, width: 800.0, height: 600.0 };
 //! let x_scale = Linear::<f64, f32>::new(0.0, 100.0);
@@ -111,7 +111,7 @@
 //! downward while chart Y typically increases upward:
 //!
 //! ```rust
-//! use tjart::{Transform, scale::Linear, ScreenRect, PlotPoint};
+//! use aksel::{Transform, scale::Linear, ScreenRect, PlotPoint};
 //!
 //! let screen = ScreenRect { x: 0.0, y: 0.0, width: 800.0, height: 600.0 };
 //! let x_scale = Linear::<f64, f32>::new(0.0, 100.0);
@@ -237,7 +237,7 @@ impl<D: Float> PlotRect<D> {
     /// # Examples
     ///
     /// ```
-    /// use tjart::{PlotPoint, PlotRect};
+    /// use aksel::{PlotPoint, PlotRect};
     ///
     /// let p1 = PlotPoint::new(10.0, 20.0);
     /// let p2 = PlotPoint::new(50.0, 80.0);
@@ -319,7 +319,7 @@ impl<D: Float> PlotRect<D> {
 /// ## Basic Point Transformation
 ///
 /// ```rust
-/// use tjart::{Transform, scale::Linear, ScreenRect, PlotPoint, ScreenPoint};
+/// use aksel::{Transform, scale::Linear, ScreenRect, PlotPoint, ScreenPoint};
 ///
 /// let screen = ScreenRect { x: 0.0, y: 0.0, width: 800.0, height: 600.0 };
 /// let x_scale = Linear::<f64, f32>::new(0.0, 100.0);
@@ -342,7 +342,7 @@ impl<D: Float> PlotRect<D> {
 /// ## Individual Coordinate Transformation
 ///
 /// ```rust
-/// use tjart::{Transform, scale::Linear, ScreenRect};
+/// use aksel::{Transform, scale::Linear, ScreenRect};
 ///
 /// let screen = ScreenRect { x: 0.0, y: 0.0, width: 800.0, height: 600.0 };
 /// let x_scale = Linear::<f64, f32>::new(0.0, 100.0);
@@ -360,7 +360,7 @@ impl<D: Float> PlotRect<D> {
 /// ## Rectangle Transformation
 ///
 /// ```rust
-/// use tjart::{Transform, scale::Linear, ScreenRect, PlotRect};
+/// use aksel::{Transform, scale::Linear, ScreenRect, PlotRect};
 ///
 /// let screen = ScreenRect { x: 0.0, y: 0.0, width: 800.0, height: 600.0 };
 /// let x_scale = Linear::<f64, f32>::new(0.0, 100.0);
@@ -383,7 +383,7 @@ impl<D: Float> PlotRect<D> {
 /// ## Handling User Interaction
 ///
 /// ```rust
-/// use tjart::{Transform, scale::Linear, ScreenRect, ScreenPoint};
+/// use aksel::{Transform, scale::Linear, ScreenRect, ScreenPoint};
 ///
 /// let screen = ScreenRect { x: 0.0, y: 0.0, width: 800.0, height: 600.0 };
 /// let x_scale = Linear::<f64, f32>::new(0.0, 100.0);
@@ -401,7 +401,7 @@ impl<D: Float> PlotRect<D> {
 /// ## Using with Logarithmic Scales
 ///
 /// ```rust
-/// use tjart::{Transform, scale::Logarithmic, ScreenRect, PlotPoint};
+/// use aksel::{Transform, scale::Logarithmic, ScreenRect, PlotPoint};
 ///
 /// let screen = ScreenRect { x: 0.0, y: 0.0, width: 800.0, height: 600.0 };
 /// let x_scale = Logarithmic::<f64, f32>::new(10.0, 1.0, 1000.0);
@@ -421,7 +421,7 @@ impl<D: Float> PlotRect<D> {
 /// ## Safe Conversion with _opt Methods
 ///
 /// ```rust
-/// use tjart::{Transform, scale::Linear, ScreenRect, PlotPoint};
+/// use aksel::{Transform, scale::Linear, ScreenRect, PlotPoint};
 ///
 /// let screen = ScreenRect { x: 0.0, y: 0.0, width: 800.0, height: 600.0 };
 /// let x_scale = Linear::<f64, f32>::new(0.0, 100.0);
@@ -463,7 +463,7 @@ impl<'a, D, N, S> Transform<'a, D, N, S> {
     /// # Examples
     ///
     /// ```
-    /// use tjart::{Transform, scale::Linear, ScreenRect};
+    /// use aksel::{Transform, scale::Linear, ScreenRect};
     ///
     /// let screen = ScreenRect { x: 0.0, y: 0.0, width: 800.0, height: 600.0 };
     /// let x_scale = Linear::<f64, f32>::new(0.0, 100.0);

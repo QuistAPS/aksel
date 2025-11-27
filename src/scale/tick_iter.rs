@@ -23,7 +23,7 @@ impl<D: 'static> TickIter<D> {
     /// # Examples
     ///
     /// ```
-    /// use tjart::scale::{Tick, TickIter};
+    /// use aksel::scale::{Tick, TickIter};
     ///
     /// let ticks = vec![
     ///     Tick { value: 0.0, level: 0 },
@@ -43,7 +43,7 @@ impl<D: 'static> TickIter<D> {
     /// # Examples
     ///
     /// ```
-    /// use tjart::scale::TickIter;
+    /// use aksel::scale::TickIter;
     ///
     /// let iter = TickIter::<f64>::empty();
     /// assert_eq!(iter.count(), 0);

@@ -37,7 +37,7 @@
 //! ## Creating and Using a Linear Scale
 //!
 //! ```rust
-//! use tjart::{Scale, scale::Linear};
+//! use aksel::{Scale, scale::Linear};
 //!
 //! // Create a scale for data ranging from 0 to 100
 //! let scale = Linear::<f64, f64>::new(0.0, 100.0);
@@ -54,7 +54,7 @@
 //! ## Creating a Logarithmic Scale
 //!
 //! ```rust
-//! use tjart::{Scale, scale::Logarithmic};
+//! use aksel::{Scale, scale::Logarithmic};
 //!
 //! // Base 10 logarithmic scale from 1 to 1000
 //! let scale = Logarithmic::<f64, f64>::new(10.0, 1.0, 1000.0);
@@ -71,7 +71,7 @@
 //! ## Panning and Zooming
 //!
 //! ```rust
-//! use tjart::{Scale, scale::Linear};
+//! use aksel::{Scale, scale::Linear};
 //!
 //! let mut scale = Linear::<f64, f64>::new(0.0, 100.0);
 //!
@@ -88,7 +88,7 @@
 //! ## Generating Ticks for Axes
 //!
 //! ```rust
-//! use tjart::{Scale, scale::Linear};
+//! use aksel::{Scale, scale::Linear};
 //!
 //! let scale = Linear::<f64, f64>::new(0.0, 100.0);
 //!
@@ -105,7 +105,7 @@
 //! ## Reversed Scales
 //!
 //! ```rust
-//! use tjart::{Scale, scale::Linear};
+//! use aksel::{Scale, scale::Linear};
 //!
 //! // Reversed scale: max < min
 //! let scale = Linear::<f64, f64>::new(100.0, 0.0);
@@ -139,7 +139,7 @@ pub use tick_iter::TickIter;
 /// # Examples
 ///
 /// ```rust
-/// use tjart::{Scale, scale::{Linear, Tick}};
+/// use aksel::{Scale, scale::{Linear, Tick}};
 ///
 /// let scale = Linear::<f64, f64>::new(0.0, 100.0);
 /// let ticks: Vec<Tick<f64>> = scale.ticks();
@@ -183,7 +183,7 @@ pub struct Tick<T> {
 /// # Examples
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Linear};
+/// use aksel::{Scale, scale::Linear};
 ///
 /// let mut scale = Linear::<f64, f64>::new(0.0, 100.0);
 ///

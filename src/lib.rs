@@ -1,6 +1,6 @@
-//! Tjarting (Charting) library
+//! akselharting library
 //!
-//! `tjart` is a charting library that provides coordinate transformations and scale mappings
+//! `aksel` is a charting library that provides coordinate transformations and scale mappings
 //! for data visualization. It focuses on the mathematical foundations of charting:
 //! mapping data values to screen coordinates and generating axis tick marks.
 //!
@@ -32,7 +32,7 @@
 //! ## Basic Linear Scale
 //!
 //! ```rust
-//! use tjart::{Scale, scale::Linear};
+//! use aksel::{Scale, scale::Linear};
 //!
 //! // Create a scale mapping [0.0, 100.0] to [0.0, 1.0]
 //! let scale = Linear::<f64, f64>::new(0.0, 100.0);
@@ -49,7 +49,7 @@
 //! ## Pan and Zoom
 //!
 //! ```rust
-//! use tjart::{Scale, scale::Linear};
+//! use aksel::{Scale, scale::Linear};
 //!
 //! let mut scale = Linear::<f64, f64>::new(0.0, 100.0);
 //!
@@ -66,7 +66,7 @@
 //! ## Coordinate Transformation
 //!
 //! ```rust
-//! use tjart::{Transform, scale::Linear, ScreenRect, PlotPoint};
+//! use aksel::{Transform, scale::Linear, ScreenRect, PlotPoint};
 //!
 //! let x_scale = Linear::<f64, f32>::new(0.0, 100.0);
 //! let y_scale = Linear::<f64, f32>::new(0.0, 50.0);
@@ -83,7 +83,7 @@
 //! ## Generating Ticks
 //!
 //! ```rust
-//! use tjart::{Scale, scale::Linear};
+//! use aksel::{Scale, scale::Linear};
 //!
 //! let scale = Linear::<f64, f64>::new(0.0, 100.0);
 //! let ticks = scale.ticks();

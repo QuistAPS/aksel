@@ -33,7 +33,7 @@ type TickGenerator<D, N> = Box<dyn Fn(&Linear<D, N>) -> TickIter<D>>;
 /// ## Basic Usage
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Linear};
+/// use aksel::{Scale, scale::Linear};
 ///
 /// let scale = Linear::<f64, f64>::new(0.0, 100.0);
 ///
@@ -51,7 +51,7 @@ type TickGenerator<D, N> = Box<dyn Fn(&Linear<D, N>) -> TickIter<D>>;
 /// ## Mixed Type Precision
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Linear};
+/// use aksel::{Scale, scale::Linear};
 ///
 /// // f64 domain, f32 normalized (common for GPU rendering)
 /// let scale = Linear::<f64, f32>::new(0.0, 100.0);
@@ -63,7 +63,7 @@ type TickGenerator<D, N> = Box<dyn Fn(&Linear<D, N>) -> TickIter<D>>;
 /// ## Pan and Zoom
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Linear};
+/// use aksel::{Scale, scale::Linear};
 ///
 /// let mut scale = Linear::<f64, f64>::new(0.0, 100.0);
 ///
@@ -85,7 +85,7 @@ type TickGenerator<D, N> = Box<dyn Fn(&Linear<D, N>) -> TickIter<D>>;
 /// ## Reversed Axis
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Linear};
+/// use aksel::{Scale, scale::Linear};
 ///
 /// // Create a reversed scale (useful for Y-axes that go down)
 /// let scale = Linear::<f64, f64>::new(100.0, 0.0);
@@ -97,7 +97,7 @@ type TickGenerator<D, N> = Box<dyn Fn(&Linear<D, N>) -> TickIter<D>>;
 /// ## Custom Tick Generation
 ///
 /// ```rust
-/// use tjart::{Scale, scale::{Linear, Tick}};
+/// use aksel::{Scale, scale::{Linear, Tick}};
 ///
 /// // Create a scale with custom ticks
 /// let scale = Linear::<f64, f64>::new_with_tick_fn(0.0, 100.0, |_scale| {
@@ -114,7 +114,7 @@ type TickGenerator<D, N> = Box<dyn Fn(&Linear<D, N>) -> TickIter<D>>;
 /// ## Out-of-Range Values
 ///
 /// ```rust
-/// use tjart::{Scale, scale::Linear};
+/// use aksel::{Scale, scale::Linear};
 ///
 /// let scale = Linear::<f64, f64>::new(0.0, 100.0);
 ///
@@ -303,7 +303,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// use tjart::{Scale, scale::Linear};
+    /// use aksel::{Scale, scale::Linear};
     ///
     /// let scale = Linear::<f64, f64>::new(0.0, 100.0);
     /// assert_eq!(scale.domain(), (&0.0, &100.0));
@@ -331,7 +331,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// use tjart::{Scale, scale::{Linear, TickIter}};
+    /// use aksel::{Scale, scale::{Linear, TickIter}};
     ///
     /// let scale = Linear::<f64, f64>::new_with_tick_generator(0.0, 100.0, |_scale| {
     ///     TickIter::empty()
@@ -365,7 +365,7 @@ where
     /// # Examples
     ///
     /// ```
-    /// use tjart::{Scale, scale::{Linear, Tick}};
+    /// use aksel::{Scale, scale::{Linear, Tick}};
     ///
     /// let scale = Linear::<f64, f64>::new_with_tick_fn(0.0, 100.0, |_scale| {
     ///     vec![
