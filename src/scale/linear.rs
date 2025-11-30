@@ -197,6 +197,10 @@ struct LinearSweepState<D: Float> {
     end_tol: D,
     minor_step: D,
     current_index: usize,
+    clamp_min: D,
+    clamp_max: D,
+    epsilon: D,
+    last_value: Option<D>,
 }
 
 impl<D: Float> LinearTickIter<D> {
@@ -213,6 +217,8 @@ impl<D: Float> LinearTickIter<D> {
         }
 
         let (mut lo, mut hi) = util::sorted_pair(min, max);
+        let clamp_min = lo;
+        let clamp_max = hi;
 
         let range = hi - lo;
         let rough_step = range / D::from(10.0).unwrap();
@@ -240,6 +246,10 @@ impl<D: Float> LinearTickIter<D> {
                 end_tol,
                 minor_step,
                 current_index: 0,
+                clamp_min,
+                clamp_max,
+                epsilon,
+                last_value: None,
             }),
             remaining: MAX_MINOR_TICKS,
         }
@@ -253,28 +263,51 @@ impl<D: Float> Iterator for LinearTickIter<D> {
         match &mut self.state {
             LinearTickState::Single(slot) => slot.take().map(|value| Tick { value, level: 0 }),
             LinearTickState::Sweep(state) => {
-                if self.remaining == 0 {
-                    self.state = LinearTickState::Done;
-                    return None;
+                while self.remaining > 0 {
+                    // Calculate value based on index to avoid accumulation errors
+                    let mut value =
+                        state.start + state.minor_step * D::from(state.current_index).unwrap();
+
+                    if value > state.end_tol {
+                        self.state = LinearTickState::Done;
+                        return None;
+                    }
+
+                    self.remaining -= 1;
+
+                    // Determine level using the index before incrementing
+                    let index = state.current_index;
+                    state.current_index += 1;
+
+                    if value < state.clamp_min {
+                        let diff = state.clamp_min - value;
+                        if diff <= state.epsilon {
+                            value = state.clamp_min;
+                        } else {
+                            continue;
+                        }
+                    } else if value > state.clamp_max {
+                        let diff = value - state.clamp_max;
+                        if diff <= state.epsilon {
+                            value = state.clamp_max;
+                        } else {
+                            self.state = LinearTickState::Done;
+                            return None;
+                        }
+                    }
+
+                    let level = if index % 10 == 0 { 0 } else { 1 };
+
+                    if state.last_value.map(|last| last == value).unwrap_or(false) {
+                        continue;
+                    }
+                    state.last_value = Some(value);
+
+                    return Some(Tick { value, level });
                 }
 
-                // Calculate value based on index to avoid accumulation errors
-                let value = state.start + state.minor_step * D::from(state.current_index).unwrap();
-
-                if value > state.end_tol {
-                    self.state = LinearTickState::Done;
-                    return None;
-                }
-
-                self.remaining -= 1;
-
-                // Determine if this is a major tick (level 0) or minor tick (level 1)
-                // by checking if the index is a multiple of 10 (before incrementing)
-                let level = if state.current_index % 10 == 0 { 0 } else { 1 };
-
-                state.current_index += 1;
-
-                Some(Tick { value, level })
+                self.state = LinearTickState::Done;
+                None
             }
             LinearTickState::Done => None,
         }
@@ -586,6 +619,11 @@ mod tests {
         let major_values: Vec<_> = majors.iter().map(|t| t.value).collect();
         assert!(major_values.contains(&0.0));
         assert!(major_values.contains(&100.0));
+        println!("Majors: {majors:#?}");
+        println!(
+            "Minors: {:#?}",
+            ticks.iter().filter(|t| t.level == 1).collect::<Vec<_>>()
+        );
     }
 
     #[test]
@@ -598,6 +636,43 @@ mod tests {
         // Verify ticks are sorted
         for i in 1..ticks.len() {
             assert!(ticks[i].value >= ticks[i - 1].value);
+        }
+    }
+
+    #[test]
+    fn test_linear_ticks_remain_within_domain() {
+        let scale = Linear::<f64, f64>::new(13.2, 47.8);
+        let (min, max) = scale.domain();
+
+        for tick in scale.ticks() {
+            assert!(
+                tick.value >= *min && tick.value <= *max,
+                "tick {} outside domain [{}, {}]",
+                tick.value,
+                min,
+                max
+            );
+        }
+    }
+
+    #[test]
+    fn test_linear_ticks_do_not_overlap_levels() {
+        let scale = Linear::<f64, f64>::new(13.2, 47.8);
+        let mut seen: Vec<(f64, u8)> = Vec::new();
+
+        for tick in scale.ticks() {
+            if let Some((value, prev_level)) = seen.iter().find(|(v, _)| *v == tick.value) {
+                assert_eq!(
+                    *prev_level,
+                    tick.level,
+                    "tick value {} emitted at both level {} and {}",
+                    tick.value,
+                    prev_level,
+                    tick.level
+                );
+            } else {
+                seen.push((tick.value, tick.level));
+            }
         }
     }
 
