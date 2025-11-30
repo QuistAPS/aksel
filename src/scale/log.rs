@@ -952,4 +952,41 @@ mod tests {
         let denormalized: f64 = scale.denormalize(0.5f32);
         assert!((denormalized - 10.0).abs() < 1e-6);
     }
+
+    #[test]
+    fn test_log_ticks_remain_within_domain() {
+        let scale = Logarithmic::<f64, f64>::new(10.0, 1.3, 347.0);
+        let (min, max) = scale.domain();
+
+        for tick in scale.ticks() {
+            assert!(
+                tick.value >= *min && tick.value <= *max,
+                "tick {} outside domain [{}, {}]",
+                tick.value,
+                min,
+                max
+            );
+        }
+    }
+
+    #[test]
+    fn test_log_ticks_do_not_overlap_levels() {
+        let scale = Logarithmic::<f64, f64>::new(10.0, 1.3, 347.0);
+        let mut seen: Vec<(f64, u8)> = Vec::new();
+
+        for tick in scale.ticks() {
+            if let Some((value, prev_level)) = seen.iter().find(|(v, _)| *v == tick.value) {
+                assert_eq!(
+                    *prev_level,
+                    tick.level,
+                    "tick value {} emitted at both level {} and {}",
+                    tick.value,
+                    prev_level,
+                    tick.level
+                );
+            } else {
+                seen.push((tick.value, tick.level));
+            }
+        }
+    }
 }
