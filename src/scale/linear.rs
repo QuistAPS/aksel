@@ -661,14 +661,11 @@ mod tests {
         let mut seen: Vec<(f64, u8)> = Vec::new();
 
         for tick in scale.ticks() {
-            if let Some((value, prev_level)) = seen.iter().find(|(v, _)| *v == tick.value) {
+            if let Some((_, prev_level)) = seen.iter().find(|(v, _)| *v == tick.value) {
                 assert_eq!(
-                    *prev_level,
-                    tick.level,
+                    *prev_level, tick.level,
                     "tick value {} emitted at both level {} and {}",
-                    tick.value,
-                    prev_level,
-                    tick.level
+                    tick.value, prev_level, tick.level
                 );
             } else {
                 seen.push((tick.value, tick.level));
