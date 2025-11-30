@@ -1,7 +1,7 @@
 [package]
 name = "aksel"
 description = "A library for handling scales and transformations"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2024"
 authors = ["Mads Ahlquist Jensen <madsaj10@outlook.com>", "Dennis Mellquist"]
 repository = "https://github.com/QuistAPS/aksel"
