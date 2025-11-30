@@ -200,6 +200,7 @@ struct LinearSweepState<D: Float> {
     clamp_min: D,
     clamp_max: D,
     epsilon: D,
+    last_value: Option<D>,
 }
 
 impl<D: Float> LinearTickIter<D> {
@@ -248,6 +249,7 @@ impl<D: Float> LinearTickIter<D> {
                 clamp_min,
                 clamp_max,
                 epsilon,
+                last_value: None,
             }),
             remaining: MAX_MINOR_TICKS,
         }
@@ -295,6 +297,11 @@ impl<D: Float> Iterator for LinearTickIter<D> {
                     }
 
                     let level = if index % 10 == 0 { 0 } else { 1 };
+
+                    if state.last_value.map(|last| last == value).unwrap_or(false) {
+                        continue;
+                    }
+                    state.last_value = Some(value);
 
                     return Some(Tick { value, level });
                 }
@@ -612,6 +619,11 @@ mod tests {
         let major_values: Vec<_> = majors.iter().map(|t| t.value).collect();
         assert!(major_values.contains(&0.0));
         assert!(major_values.contains(&100.0));
+        println!("Majors: {majors:#?}");
+        println!(
+            "Minors: {:#?}",
+            ticks.iter().filter(|t| t.level == 1).collect::<Vec<_>>()
+        );
     }
 
     #[test]
@@ -640,6 +652,27 @@ mod tests {
                 min,
                 max
             );
+        }
+    }
+
+    #[test]
+    fn test_linear_ticks_do_not_overlap_levels() {
+        let scale = Linear::<f64, f64>::new(13.2, 47.8);
+        let mut seen: Vec<(f64, u8)> = Vec::new();
+
+        for tick in scale.ticks() {
+            if let Some((value, prev_level)) = seen.iter().find(|(v, _)| *v == tick.value) {
+                assert_eq!(
+                    *prev_level,
+                    tick.level,
+                    "tick value {} emitted at both level {} and {}",
+                    tick.value,
+                    prev_level,
+                    tick.level
+                );
+            } else {
+                seen.push((tick.value, tick.level));
+            }
         }
     }
 
