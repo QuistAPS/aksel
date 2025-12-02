@@ -282,24 +282,24 @@ impl<D: Float> PlotRect<D> {
     /// Returns true if the provided point lies within this rectangle.
     ///
     /// Bounds are inclusive and negative spans are handled correctly.
-    pub fn contains(&self, point: PlotPoint<D>) -> bool {
-        self.contains_x(point.x) && self.contains_y(point.y)
+    pub fn contains(&self, point: &PlotPoint<D>) -> bool {
+        self.contains_x(&point.x) && self.contains_y(&point.y)
     }
 
     /// Returns true if the provided X value lies within the horizontal extent.
     ///
     /// Works for rectangles with negative widths by comparing sorted endpoints.
-    pub fn contains_x(&self, value: D) -> bool {
+    pub fn contains_x(&self, value: &D) -> bool {
         let (min_x, max_x) = sorted_pair(self.x, self.x + self.width);
-        value >= min_x && value <= max_x
+        value >= &min_x && value <= &max_x
     }
 
     /// Returns true if the provided Y value lies within the vertical extent.
     ///
     /// Works for rectangles with negative heights by comparing sorted endpoints.
-    pub fn contains_y(&self, value: D) -> bool {
+    pub fn contains_y(&self, value: &D) -> bool {
         let (min_y, max_y) = sorted_pair(self.y, self.y + self.height);
-        value >= min_y && value <= max_y
+        value >= &min_y && value <= &max_y
     }
 }
 
@@ -316,9 +316,9 @@ mod plot_rect_tests {
             height: 5.0,
         };
 
-        assert!(rect.contains(PlotPoint::new(5.0, 3.0)));
-        assert!(rect.contains_x(0.0));
-        assert!(rect.contains_y(5.0));
+        assert!(rect.contains(&PlotPoint::new(5.0, 3.0)));
+        assert!(rect.contains_x(&0.0));
+        assert!(rect.contains_y(&5.0));
     }
 
     #[test]
@@ -330,9 +330,9 @@ mod plot_rect_tests {
             height: -6.0,
         };
 
-        assert!(rect.contains(PlotPoint::new(8.0, -1.0)));
-        assert!(rect.contains_x(6.0));
-        assert!(rect.contains_y(2.0));
+        assert!(rect.contains(&PlotPoint::new(8.0, -1.0)));
+        assert!(rect.contains_x(&6.0));
+        assert!(rect.contains_y(&2.0));
     }
 
     #[test]
@@ -344,9 +344,9 @@ mod plot_rect_tests {
             height: 2.0,
         };
 
-        assert!(!rect.contains(PlotPoint::new(-10.0, 0.0)));
-        assert!(!rect.contains_x(0.0));
-        assert!(!rect.contains_y(10.0));
+        assert!(!rect.contains(&PlotPoint::new(-10.0, 0.0)));
+        assert!(!rect.contains_x(&0.0));
+        assert!(!rect.contains_y(&10.0));
     }
 }
 
