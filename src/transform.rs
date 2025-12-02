@@ -265,6 +265,46 @@ impl<D: Float> PlotRect<D> {
         }
     }
 
+    /// Creates a rectangle centered at the given point with the specified width and height.
+    ///
+    /// # Arguments
+    ///
+    /// * `center` - The center point of the rectangle.
+    /// * `width` - The width of the rectangle.
+    /// * `height` - The height of the rectangle.
+    ///
+    /// # Returns
+    ///
+    /// A new `PlotRect` instance.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use aksel::{PlotPoint, PlotRect};
+    ///
+    /// let center = PlotPoint::new(50.0, 50.0);
+    /// let width = 100.0;
+    /// let height = 200.0;
+    ///
+    /// let rect = PlotRect::from_center(center, width, height);
+    /// assert_eq!(rect.x, 25.0);
+    /// assert_eq!(rect.y, 0.0);
+    /// assert_eq!(rect.width, 100.0);
+    /// assert_eq!(rect.height, 200.0);
+    /// ```
+
+    pub fn from_center(center: PlotPoint<D>, width: D, height: D) -> Self {
+        let half_width = width / D::from(2).unwrap();
+        let half_height = height / D::from(2).unwrap();
+
+        Self {
+            x: center.x - half_width,
+            y: center.y - half_height,
+            width,
+            height,
+        }
+    }
+
     /// Returns the maximum X coordinate (right edge) of the rectangle.
     ///
     /// Computed as `x + width`.
