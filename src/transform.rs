@@ -341,6 +341,16 @@ impl<D: Float> PlotRect<D> {
         let (min_y, max_y) = sorted_pair(self.y, self.y + self.height);
         value >= &min_y && value <= &max_y
     }
+
+    /// Returns true if the provided rectangle intersects with this one.
+    ///
+    /// Works for rectangles with negative dimensions by comparing sorted endpoints.
+    pub fn intersects(&self, other: &PlotRect<D>) -> bool {
+        self.contains_x(&other.x)
+            || self.contains_x(&other.max_x())
+            || self.contains_y(&other.y)
+            || self.contains_y(&other.max_y())
+    }
 }
 
 #[cfg(test)]
